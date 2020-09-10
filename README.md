@@ -14,8 +14,6 @@ do the operations in order of left to right.
 LICENSE: This is open-source software released under the terms of the
 GPL (http://www.gnu.org/licenses/gpl.html).
 
-INSTALLATION: Put this file somewhere where Python can see it.
-
 EXAMPLE:
 
 --------------------------------------------------------------------
