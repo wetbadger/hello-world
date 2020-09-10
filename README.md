@@ -1,5 +1,6 @@
 # realMath.py
-"""Simple calculator for doing math left to right
+
+Simple calculator for doing math left to right
 
 This module is designed to do math from left to right ignoring order
 of operations. The purpose of this is to prove that PEMDAS also known
@@ -19,13 +20,11 @@ EXAMPLE:
 --------------------------------------------------------------------
 import realMath
 
-problem = "4 + 2 * 3"
-answer = realMath.solve(problem)
-
+answer = realMath.solve("4 + 2 * 3")
 print(answer)
 
-OUTPUT:
-18
+    OUTPUT:
+    18
 --------------------------------------------------------------------
 
 OVERVIEW:
