@@ -32,4 +32,3 @@ OVERVIEW:
 When entering a problem into realMath.solve(string), the problem should
 be expressed as a string. Any amount of whitespace is ignored. And Python
 is forced to do operations from left to right.
-"""
