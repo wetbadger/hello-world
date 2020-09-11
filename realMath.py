@@ -36,29 +36,106 @@ be expressed as a string. Any amount of whitespace is ignored. And Python
 is forced to do operations from left to right.
 """
 
-__version__ = "1.0"
-
+__version__ = "1.1"
+# Version 1.1
+#sequential parenthesis no longer computing backwards
+#allowed for -(a+b) expressions
+#negative numbers are represented as the entered value
+#"=" sign returns true or false
 # Version 1.0 9/10/2020
 
 
 import sys
-
+#global so is not reset on solve()
 def solve(problem):
+    def resolve(problem): #resolves parenthesis into a readable equation
+        pLevel=0
+        microproblem=""
+        resolution=""
+        a=""
+        for char in problem:
+            if char == "(":
+                if pLevel > 0:
+                    microproblem=microproblem+char
+                pLevel+=1
+            elif char == ")":
+                pLevel-=1
+                if pLevel > 0:
+                    microproblem=microproblem+char
+            elif pLevel > 0:
+                microproblem=microproblem+char
+            if pLevel == 0 and solve != "":
+                if microproblem != "":
+                    a = solve(microproblem)
+                    microproblem = ""
+            if char in ["+","-","*","/","%","^","="] and pLevel == 0:
+                a=str(a)+char
+            if char.isdigit() and pLevel == 0:
+                a=str(a)+char
+            resolution=resolution+str(a)
+            a=""
+        return resolution
+
+    def doMath(nums):
+        num1 = None
+        operator = ""
+        num2 = None
+        for n in nums:
+            if isinstance(n, int) or isinstance(n, float): #set num1 and num2 to numbers, treat anything else as an operator
+                if num1 == None:
+                    num1 = n
+                else:
+                    num2 = n
+                    break #break out of for loop
+            else:
+                operator = n
+        try:
+            if operator == "+":
+                a = num1 + num2
+            elif operator == "-":
+                try:
+                    a = num1 - num2
+                except:
+                    a = num1
+            elif operator == "*":
+                a = num1 * num2
+            elif operator == "/":
+                a = num1 / num2
+            elif operator == "%":
+                a = num1 % num2
+            elif operator == "^":
+                a = num1**num2
+            elif operator == "": #no operator, return just the number
+                return num1
+            else:
+                print(operator)
+                return "There was an error."
+        except:
+            a = sys.exc_info()[0]
+            return "Error: " + str(a)
+        if len(nums) > 1:
+            nums = nums[3:]
+            nums.insert(0,a)
+            if len(nums)==1:
+                answer = nums[0]
+                return answer
+            else:
+                return doMath(nums)
+    problem = resolve(problem) #resolve parenthesis
     nums = []
     d = 0
     i = 0 #tracks index in list nums
     whtspc = False
     unary = True #be aware of a minus sign! if a '-' appears before a number, after '+', or inside a parenthesis, treat it as a negative number
-    negative = False
     f = -1 #floating point
     ii = 0 #tracks index of problem string
-    plevel = 0 #how many levels of parenthesis deep are we
+    negative = False
     for char in problem:
         if char.isdigit() and f == -1:
             if negative == False: #check if positive or negative
                 digit = d + int(char)
             else:
-                digit = -(d + int(char))
+                digit = (d - int(char))
             if 0 <= i < len(nums):
                 nums[i] = digit
             else:
@@ -90,71 +167,22 @@ def solve(problem):
             else:
                 nums.append(int(char) / f)
             f = f * 10
-        elif char == "(": #all things inside of a perenthesis get solved first
-            ii+=1
-            plevel+=1
-            parenthetical=""
-            for c in problem[ii:len(problem):1]:
-                if c == ")":
-                    plevel-=1
-                    if plevel == 0:
-                        parenthetical = solve(parenthetical)
-                    ii+=1
-                else:
-                    parenthetical=str(parenthetical)+c
-                ii+=1
-            if type(parenthetical) is str: #if we're dealing with a string solve it
-                nums.append(solve(parenthetical))
-            else: #otherwise we have an integer solved 7 lines ago
-                nums.append(parenthetical)
-            break #tell the iterator to start at ii
-        elif char == ")":
-            pass
-        elif char != " ": #if the char is something else besides extra whitespace tell the use that that is not correct
-            return "Error: \"" + char + "\" is not a valid number or operator."
+        elif char == "=":
+            if doMath(nums)==solve(problem[ii+1:]): #is the first side = to the second side?
+                return True
+            else:
+                return False
+        elif char != " ": #should not trigger ever as of 1.1
+            return 'Error: "'+char+'" not a valid operator'
         ii+=1
+    oper=0
+    for elem in nums:
+        if isinstance(elem, int):
+            oper=0
+            continue
+        elif isinstance(elem, str):
+            oper+=1
+            if oper >= 2:
+                nums.remove(elem) #remove redundant "-"
     answer = doMath(nums)
     return answer
-
-def doMath(nums):
-    num1 = None
-    operator = ""
-    num2 = None
-    for n in nums:
-        if isinstance(n, int) or isinstance(n, float):
-            if num1 == None:
-                num1 = n
-            else:
-                num2 = n
-                break #break out of for loop
-        else:
-            operator = n
-    try:
-        if operator == "+":
-            a = num1 + num2
-        elif operator == "-":
-            a = num1 - num2
-        elif operator == "*":
-            a = num1 * num2
-        elif operator == "/":
-            a = num1 / num2
-        elif operator == "%":
-            a = num1 % num2
-        elif operator == "^":
-            a = num1**num2
-        elif operator == "":
-            return num1
-        else:
-            print(operator)
-            return "There was an error."
-    except:
-        a = sys.exc_info()[0]
-        return "Error: " + str(a)
-    if len(nums) > 1:
-        nums = nums[3:]
-        nums.insert(0,a)
-        if len(nums)==1:
-            answer = nums[0]
-            return answer
-        else:
-            return doMath(nums)
