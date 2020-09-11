@@ -68,7 +68,7 @@ def solve(problem):
                 if microproblem != "":
                     a = solve(microproblem)
                     microproblem = ""
-            if char in ["+","-","*","/","%","^","="] and pLevel == 0:
+            if char in ["+","-","*","/","%","^","=","."] and pLevel == 0:
                 a=str(a)+char
             if char.isdigit() and pLevel == 0:
                 a=str(a)+char
