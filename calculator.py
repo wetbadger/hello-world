@@ -1,4 +1,4 @@
-import realMath
+import simpleMath as Simple
 
 WELCOME_MESSAGE="""
              _______________________________________________
@@ -9,7 +9,7 @@ WELCOME_MESSAGE="""
             Welcome to realMath calculator! The calculator
             that does math from left to right!
 
-      Acceptable operations: + - * / ^ %
+      Acceptable operations: + - * / ^ % =
 
         q to quit
 
@@ -19,4 +19,4 @@ while True:
     calculation = input()
     if calculation == "q":
         break
-    print(realMath.solve(calculation))
+    print(Simple.solve(calculation))
