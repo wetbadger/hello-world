@@ -20,7 +20,7 @@ EXAMPLE:
 --------------------------------------------------------------------
 import simpleMath
 
-answer = realMath.solve("4 + 2 * 3")
+answer = simpleMath.solve("4 + 2 * 3")
 
 print(answer)
 
