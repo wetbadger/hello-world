@@ -1,4 +1,4 @@
-# realMath.py
+# simpleMath.py
 
 Simple calculator for doing math left to right
 
@@ -18,7 +18,7 @@ GPL (http://www.gnu.org/licenses/gpl.html).
 EXAMPLE:
 
 --------------------------------------------------------------------
-import realMath
+import simpleMath
 
 answer = realMath.solve("4 + 2 * 3")
 
