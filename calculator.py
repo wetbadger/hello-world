@@ -3,10 +3,10 @@ import simpleMath as Simple
 WELCOME_MESSAGE="""
              _______________________________________________
             |                                               |
-            |              REALMATH CALCULATOR              |
+            |             SIMPLEMATH CALCULATOR             |
             |_______________________________________________|
 
-            Welcome to realMath calculator! The calculator
+            Welcome to simpleMath calculator! The calculator
             that does math from left to right!
 
       Acceptable operations: + - * / ^ % =
