@@ -36,12 +36,12 @@ be expressed as a string. Any amount of whitespace is ignored. And Python
 is forced to do operations from left to right.
 """
 
-__version__ = "1.1"
-#version 1.2 9/17/2020
+__version__ = "1.11"
+#version 1.11 9/17/2020
 #changed name to simpleMath
 #fixed issue with negative decimals
 #fixed issue with adding 3 or more decimals
-# Version 1.1
+# Version 1.1 9/11/2020
 #sequential parenthesis no longer computing backwards
 #allowed for -(a+b) expressions
 #negative numbers are represented as the entered value
